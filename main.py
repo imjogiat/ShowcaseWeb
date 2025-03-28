@@ -1,6 +1,6 @@
 import PIL.Image
 import streamlit as stlt
-import PIL
+from PIL import Image 
 import os
 from pathlib import Path
 import pandas
@@ -30,20 +30,29 @@ statement1 = """
 
 stlt.write(statement1)
 
-col3, col4 = stlt.columns(2)
+col3, empty_col, col4 = stlt.columns([1.5, 0.5, 1.5])
 
 df = pandas.read_csv("data.csv", sep=";")
 
 with col3:
     for index, data_row in df[:10].iterrows():
         stlt.header(data_row["title"])
-    
+        stlt.write(data_row["description"])
+
+        imgfile_name = data_row["image"]
+        stlt.image(f"images\{imgfile_name}")
+
+        stlt.write(f"[Source code]({data_row['url']})")
+ 
 
 with col4:
     for index, data_row in df[10:].iterrows():
         stlt.header(data_row["title"])
+        stlt.write(data_row["description"])
                 
-                
+        imgfile_name = data_row["image"]
+        stlt.image(f"images\{imgfile_name}")
+        stlt.write(f"[Source code: ]({data_row['url']})")
 
 
 
