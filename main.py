@@ -1,4 +1,3 @@
-import PIL.Image
 import streamlit as stlt
 from PIL import Image 
 import os
